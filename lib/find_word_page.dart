@@ -153,19 +153,14 @@ class _FindWordPageState extends State<FindWordPage> {
                           case 'WSOrientation.horizontal':
                             {
                               int count = 1;
-
+                              int e = element.x;
                               for (int a = (element.y * widget.colnumber);
                                   a < widget.gridcara.length;
                                   a++) {
-                                if (element.x == 0) {
-                                  colorList[a] = a;
-                                  count++;
-                                  if (count > wordcontroller.text.length) break;
-                                } else {
-                                  colorList[a + element.x] = a + element.x;
-                                  count++;
-                                  if (count > wordcontroller.text.length) break;
-                                }
+                                int h = (a + element.x);
+                                colorList[h] = h;
+                                count++;
+                                if (count > wordcontroller.text.length) break;
                               }
                             }
 
@@ -177,30 +172,47 @@ class _FindWordPageState extends State<FindWordPage> {
                               int rc =
                                   (widget.gridcara.length / widget.colnumber)
                                       .floor();
-
-                              for (int a = element.x;
+                              //print('rc==$rc');
+                              int e = element.x;
+                              int f = element.y;
+                              for (int a = (element.x * rc);
                                   a < widget.gridcara.length;
-                                  a += widget.colnumber) {
-                                if (element.y == 0) {
-                                  colorList[a] = a;
-                                  count++;
-                                  if (count > wordcontroller.text.length) break;
-                                } else {
-                                  rc += widget.colnumber;
-                                  colorList[(a + rc)] = (a + rc);
-                                  count++;
-
-                                  if (count > wordcontroller.text.length) break;
-                                }
+                                  a++) {
+                                int h = (f * widget.colnumber) + element.x;
+                                colorList[h] = h;
+                                f++;
+                                count++;
+                                if (count > wordcontroller.text.length) break;
                               }
                               break;
                             }
                           case 'WSOrientation.diagonal':
-                            {}
-                            break;
+                            {
+                              int count = 0;
 
+                              int rc =
+                                  (widget.gridcara.length / widget.colnumber)
+                                      .floor();
+
+                              int e = element.x;
+                              int f = element.y;
+
+                              for (int a = (element.x * rc);
+                                  a < widget.gridcara.length;
+                                  a++) {
+                                int h =
+                                    (f * widget.colnumber) + element.x + count;
+                                colorList[h] = h;
+                                f++;
+                                count++;
+                                if (count >= wordcontroller.text.length) break;
+                              }
+                              break;
+                            }
                           default:
-                            {}
+                            {
+                              print("Invalid choice");
+                            }
                             break;
                         }
                       });
